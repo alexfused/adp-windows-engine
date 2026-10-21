@@ -1,0 +1,240 @@
+{
+  "schema": 1,
+  "kind": "adp-monitor-windows-engine",
+  "name": "engine-arm64-11.18-2",
+  "version": "11.18-2",
+  "wineVersion": "11.18",
+  "arch": "arm64",
+  "minimumMacOS": "27.0",
+  "rosetta": false,
+  "archive": {
+    "format": "tar.xz",
+    "url": "https://github.com/alexfused/adp-windows-engine/releases/download/engines-2026-10-21b/engine-arm64-11.18-2.tar.xz",
+    "sha256": "67cb8cde7299c701a3aae047ba13ae7fff69237904e383eae8536d1f8e8e1c94",
+    "bytes": 85920516
+  },
+  "unpacked": {
+    "bytes": 1010637269,
+    "files": 1822
+  },
+  "layout": {
+    "root": "engine-arm64-11.18-2",
+    "wine": "bin/wine",
+    "wineserver": "bin/wineserver",
+    "loaderApp": "lib/wine/aarch64-unix/WineHost.app",
+    "loader": "lib/wine/aarch64-unix/WineHost.app/Contents/MacOS/wine",
+    "emulators": {
+      "x86_64": "lib/wine/aarch64-windows/xtajit64.dll",
+      "i386": "lib/wine/aarch64-windows/xtajit.dll"
+    },
+    "licenses": "licenses"
+  },
+  "healthCheck": {
+    "argv": [
+      "bin/wine",
+      "--version"
+    ],
+    "stdoutPrefix": "wine-"
+  },
+  "environment": {
+    "WINEDLLOVERRIDES": "winemenubuilder.exe=d;mscoree,mshtml="
+  },
+  "signing": {
+    "teamID": "2F2FVY326V",
+    "loaderBundleID": "com.alexparkin.adpmonitor.winehost",
+    "otherFilesIdentifierPrefix": "com.alexparkin.adpmonitor.winehost.",
+    "loaderEntitlements": [
+      "com.apple.application-identifier",
+      "com.apple.developer.cross-architecture-support",
+      "com.apple.developer.team-identifier",
+      "com.apple.security.cs.allow-unsigned-executable-memory",
+      "com.apple.security.cs.disable-library-validation"
+    ],
+    "notarized": true,
+    "notarySubmission": "9e0d82b3-8bc3-4a85-ac85-68c2add44d84",
+    "stapled": [
+      "lib/wine/aarch64-unix/WineHost.app"
+    ]
+  },
+  "sources": {
+    "wine": {
+      "commit": "6880117619afdf62b4ccc40a8c6268c86613131f",
+      "hadronPatches": "0001 0002 0003 0004 0005 0006 0008 0010 0011 0013 0015 0016 0018 0019 0020 0021 0022 0024 0025 0027 0029 0030 0031 0032 0033 0034 0035 0036 0038 0039",
+      "upstreamUrl": "https://gitlab.winehq.org/wine/wine.git"
+    },
+    "fex": {
+      "commit": "0df84d3844bcdb87bb7d3f5b8fb0959cd009c038",
+      "hadronPatches": "0001 0002 0003 0004 0005",
+      "upstreamUrl": "https://github.com/FEX-Emu/FEX.git"
+    },
+    "hadron": {
+      "commit": "d523fe6b8fa0d8632911d49d02980769f2d4261c",
+      "upstreamUrl": "https://github.com/Broyojo/hadron.git"
+    },
+    "llvmMingw": {
+      "version": "20260922",
+      "sha256": "52e5f5a7b131021d0c39a37a38fa380a1da7885cd04bd61afd0cd4ecfb8bc1f3",
+      "upstreamUrl": "https://github.com/mstorsjo/llvm-mingw/releases/download/20260922/llvm-mingw-20260922-ucrt-macos-universal.tar.xz"
+    },
+    "libExt": [
+      {
+        "name": "gmp",
+        "version": "6.3.0",
+        "file": "gmp-6.3.0.tar.xz",
+        "sha256": "a3c2b80201b89e68616f4ad30bc66aee4927c3ce50e33929ca819d5c43538898",
+        "url": "https://github.com/alexfused/adp-windows-engine/releases/download/engines-2026-10-21b/gmp-6.3.0.tar.xz",
+        "upstreamUrl": "https://gmplib.org/download/gmp/gmp-6.3.0.tar.xz"
+      },
+      {
+        "name": "nettle",
+        "version": "4.0",
+        "file": "nettle-4.0.tar.gz",
+        "sha256": "3addbc00da01846b232fb3bc453538ea5468da43033f21bb345cb1e9073f5094",
+        "url": "https://github.com/alexfused/adp-windows-engine/releases/download/engines-2026-10-21b/nettle-4.0.tar.gz",
+        "upstreamUrl": "https://mirrors.kernel.org/gnu/nettle/nettle-4.0.tar.gz"
+      },
+      {
+        "name": "libtasn1",
+        "version": "4.21.0",
+        "file": "libtasn1-4.21.0.tar.gz",
+        "sha256": "1d8a444a223cc5464240777346e125de51d8e6abf0b8bac742ac84609167dc87",
+        "url": "https://github.com/alexfused/adp-windows-engine/releases/download/engines-2026-10-21b/libtasn1-4.21.0.tar.gz",
+        "upstreamUrl": "https://mirrors.kernel.org/gnu/libtasn1/libtasn1-4.21.0.tar.gz"
+      },
+      {
+        "name": "libunistring",
+        "version": "1.4.2",
+        "file": "libunistring-1.4.2.tar.gz",
+        "sha256": "e82664b170064e62331962126b259d452d53b227bb4a93ab20040d846fec01d8",
+        "url": "https://github.com/alexfused/adp-windows-engine/releases/download/engines-2026-10-21b/libunistring-1.4.2.tar.gz",
+        "upstreamUrl": "https://mirrors.kernel.org/gnu/libunistring/libunistring-1.4.2.tar.gz"
+      },
+      {
+        "name": "libidn2",
+        "version": "2.3.8",
+        "file": "libidn2-2.3.8.tar.gz",
+        "sha256": "f557911bf6171621e1f72ff35f5b1825bb35b52ed45325dcdee931e5d3c0787a",
+        "url": "https://github.com/alexfused/adp-windows-engine/releases/download/engines-2026-10-21b/libidn2-2.3.8.tar.gz",
+        "upstreamUrl": "https://mirrors.kernel.org/gnu/libidn/libidn2-2.3.8.tar.gz"
+      },
+      {
+        "name": "gnutls",
+        "version": "3.8.13",
+        "file": "gnutls-3.8.13.tar.xz",
+        "sha256": "ffed8ec1bf09c2426d4f14aae377de4753b53e537d685e604e99a8b16ca9c97e",
+        "url": "https://github.com/alexfused/adp-windows-engine/releases/download/engines-2026-10-21b/gnutls-3.8.13.tar.xz",
+        "upstreamUrl": "https://www.gnupg.org/ftp/gcrypt/gnutls/v3.8/gnutls-3.8.13.tar.xz"
+      },
+      {
+        "name": "gnutls-patch",
+        "version": "29c2027c",
+        "file": "gnutls-3.8.13-29c2027c.diff",
+        "sha256": "c0bfc0164ff131c9d2e1c4d0367430f8b767b64c9c21e0f408bd634d21fb0302",
+        "url": "https://github.com/alexfused/adp-windows-engine/releases/download/engines-2026-10-21b/gnutls-3.8.13-29c2027c.diff",
+        "upstreamUrl": "https://gitlab.com/gnutls/gnutls/-/commit/29c2027c963cf559817d0da37c1fc2efd0c1bd6a.diff"
+      },
+      {
+        "name": "libpng",
+        "version": "1.6.59",
+        "file": "libpng-1.6.59.tar.xz",
+        "sha256": "d80dd2a38a37f803cb9b6ac7b14bd6e74ddc3b654780a8380bdf93523fdb4389",
+        "url": "https://github.com/alexfused/adp-windows-engine/releases/download/engines-2026-10-21b/libpng-1.6.59.tar.xz",
+        "upstreamUrl": "https://downloads.sourceforge.net/project/libpng/libpng16/1.6.59/libpng-1.6.59.tar.xz"
+      },
+      {
+        "name": "freetype",
+        "version": "2.14.3",
+        "file": "freetype-2.14.3.tar.xz",
+        "sha256": "36bc4f1cc413335368ee656c42afca65c5a3987e8768cc28cf11ba775e785a5f",
+        "url": "https://github.com/alexfused/adp-windows-engine/releases/download/engines-2026-10-21b/freetype-2.14.3.tar.xz",
+        "upstreamUrl": "https://downloads.sourceforge.net/project/freetype/freetype2/2.14.3/freetype-2.14.3.tar.xz"
+      }
+    ]
+  },
+  "release": {
+    "repo": "alexfused/adp-windows-engine",
+    "tag": "engines-2026-10-21b",
+    "page": "https://github.com/alexfused/adp-windows-engine/releases/tag/engines-2026-10-21b",
+    "sha256sums": "https://github.com/alexfused/adp-windows-engine/releases/download/engines-2026-10-21b/SHA256SUMS"
+  },
+  "notices": {
+    "name": "engine-arm64-11.18-2.THIRD-PARTY-LICENSES.md",
+    "url": "https://github.com/alexfused/adp-windows-engine/releases/download/engines-2026-10-21b/engine-arm64-11.18-2.THIRD-PARTY-LICENSES.md",
+    "sha256": "0c7cae60bc6a0895956d537165cc80df6059ddc54887848669487a9581f7a062",
+    "bytes": 518049
+  },
+  "sourceFiles": [
+    {
+      "name": "adp-engine-arm64-11.18-2-build.tar.xz",
+      "url": "https://github.com/alexfused/adp-windows-engine/releases/download/engines-2026-10-21b/adp-engine-arm64-11.18-2-build.tar.xz",
+      "sha256": "29c31793717541c58728cc8a872998689d02bfabe53fd1e7a0df04b899f0c94b",
+      "bytes": 103980
+    },
+    {
+      "name": "fex-0df84d3844bcdb87bb7d3f5b8fb0959cd009c038-src.tar.xz",
+      "url": "https://github.com/alexfused/adp-windows-engine/releases/download/engines-2026-10-21b/fex-0df84d3844bcdb87bb7d3f5b8fb0959cd009c038-src.tar.xz",
+      "sha256": "45d014d767c784ec679d1200bacc6838361fad800a8e6545920fdbcd35f83ccc",
+      "bytes": 3760032
+    },
+    {
+      "name": "freetype-2.14.3.tar.xz",
+      "url": "https://github.com/alexfused/adp-windows-engine/releases/download/engines-2026-10-21b/freetype-2.14.3.tar.xz",
+      "sha256": "36bc4f1cc413335368ee656c42afca65c5a3987e8768cc28cf11ba775e785a5f",
+      "bytes": 2670220
+    },
+    {
+      "name": "gmp-6.3.0.tar.xz",
+      "url": "https://github.com/alexfused/adp-windows-engine/releases/download/engines-2026-10-21b/gmp-6.3.0.tar.xz",
+      "sha256": "a3c2b80201b89e68616f4ad30bc66aee4927c3ce50e33929ca819d5c43538898",
+      "bytes": 2094196
+    },
+    {
+      "name": "gnutls-3.8.13-29c2027c.diff",
+      "url": "https://github.com/alexfused/adp-windows-engine/releases/download/engines-2026-10-21b/gnutls-3.8.13-29c2027c.diff",
+      "sha256": "c0bfc0164ff131c9d2e1c4d0367430f8b767b64c9c21e0f408bd634d21fb0302",
+      "bytes": 819
+    },
+    {
+      "name": "gnutls-3.8.13.tar.xz",
+      "url": "https://github.com/alexfused/adp-windows-engine/releases/download/engines-2026-10-21b/gnutls-3.8.13.tar.xz",
+      "sha256": "ffed8ec1bf09c2426d4f14aae377de4753b53e537d685e604e99a8b16ca9c97e",
+      "bytes": 7275324
+    },
+    {
+      "name": "libidn2-2.3.8.tar.gz",
+      "url": "https://github.com/alexfused/adp-windows-engine/releases/download/engines-2026-10-21b/libidn2-2.3.8.tar.gz",
+      "sha256": "f557911bf6171621e1f72ff35f5b1825bb35b52ed45325dcdee931e5d3c0787a",
+      "bytes": 2234804
+    },
+    {
+      "name": "libpng-1.6.59.tar.xz",
+      "url": "https://github.com/alexfused/adp-windows-engine/releases/download/engines-2026-10-21b/libpng-1.6.59.tar.xz",
+      "sha256": "d80dd2a38a37f803cb9b6ac7b14bd6e74ddc3b654780a8380bdf93523fdb4389",
+      "bytes": 1074540
+    },
+    {
+      "name": "libtasn1-4.21.0.tar.gz",
+      "url": "https://github.com/alexfused/adp-windows-engine/releases/download/engines-2026-10-21b/libtasn1-4.21.0.tar.gz",
+      "sha256": "1d8a444a223cc5464240777346e125de51d8e6abf0b8bac742ac84609167dc87",
+      "bytes": 1816537
+    },
+    {
+      "name": "libunistring-1.4.2.tar.gz",
+      "url": "https://github.com/alexfused/adp-windows-engine/releases/download/engines-2026-10-21b/libunistring-1.4.2.tar.gz",
+      "sha256": "e82664b170064e62331962126b259d452d53b227bb4a93ab20040d846fec01d8",
+      "bytes": 5046603
+    },
+    {
+      "name": "nettle-4.0.tar.gz",
+      "url": "https://github.com/alexfused/adp-windows-engine/releases/download/engines-2026-10-21b/nettle-4.0.tar.gz",
+      "sha256": "3addbc00da01846b232fb3bc453538ea5468da43033f21bb345cb1e9073f5094",
+      "bytes": 2630735
+    },
+    {
+      "name": "wine-6880117619afdf62b4ccc40a8c6268c86613131f.tar.gz",
+      "url": "https://github.com/alexfused/adp-windows-engine/releases/download/engines-2026-10-21b/wine-6880117619afdf62b4ccc40a8c6268c86613131f.tar.gz",
+      "sha256": "4dbd908aaf6207da5a540ee4681c79f8a3523240c12a80989a6e075c86ae893f",
+      "bytes": 75695007
+    }
+  ]
+}

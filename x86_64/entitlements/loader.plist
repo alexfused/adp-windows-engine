@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!-- Hardened-runtime exceptions for the Intel engine's loader (lib/wine/x86_64-unix/wine), the only
+     Mach-O in the engine with entitlements. No provisioning profile: Intel runs x86 Windows code
+     natively, so no restricted entitlement is needed. README.md ("Entitlements") says why each one
+     is here; test-on-intel.sh's entitlement matrix checks it on a real Intel Mac.
+     - allow-unsigned-executable-memory: Wine relocates PE images and Windows programs ask for
+       PAGE_EXECUTE_READWRITE memory (JITs, packers, .NET); Wine maps those pages writable and
+       executable without MAP_JIT.
+     - disable-library-validation: Wine maps PE files (.dll/.exe, which have no Mach-O signature)
+       executable; under library validation the kernel refuses PROT_EXEC on them
+       ("failed to set 60000020 protection ... noexec filesystem?" in the arm64 matrix). It also
+       lets a user replace lib/ext's LGPL libraries with their own builds. -->
+<plist version="1.0">
+<dict>
+    <key>com.apple.security.cs.allow-unsigned-executable-memory</key>
+    <true/>
+    <key>com.apple.security.cs.disable-library-validation</key>
+    <true/>
+</dict>
+</plist>

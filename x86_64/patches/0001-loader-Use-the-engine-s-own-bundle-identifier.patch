@@ -1,0 +1,27 @@
+From: ADP Monitor Windows engine build <276656355+alexfused@users.noreply.github.com>
+Subject: [PATCH] loader: Use the engine's own bundle identifier on macOS.
+
+The macOS loader embeds an Info.plist (__TEXT,__info_plist), and macOS
+names a process started from it by that plist's CFBundleIdentifier. Use
+the engine's own App ID, com.alexparkin.adpmonitor.winehost, which is
+also the loader's code-signing identifier: the engine is then neither
+WineHQ's org.winehq.wine signed by someone else nor ADP Monitor
+(com.alexparkin.adpmonitor), whose privacy permissions and root helper
+it must never share.
+
+This change is licensed like Wine: LGPL-2.1-or-later.
+---
+ loader/wine_info.plist.in | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+--- a/loader/wine_info.plist.in
++++ b/loader/wine_info.plist.in
+@@ -9,7 +9,7 @@
+     <key>CFBundleExecutable</key>
+     <string>wine</string>
+     <key>CFBundleIdentifier</key>
+-    <string>org.winehq.wine</string>
++    <string>com.alexparkin.adpmonitor.winehost</string>
+     <key>CFBundleInfoDictionaryVersion</key>
+     <string>6.0</string>
+     <key>CFBundleName</key>

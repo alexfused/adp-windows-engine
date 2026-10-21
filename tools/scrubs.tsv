@@ -1,0 +1,16 @@
+# SPDX-License-Identifier: MIT
+# Changes tools/import-build-scripts.py makes to the build scripts it copies from ADP Monitor, so that no
+# published file names a folder on the maintainer's Mac. Each replaces a default path with one relative to the
+# script's own folder; behaviour on the build Mac is unchanged when the folders sit where ADP Monitor keeps them,
+# and every one can still be set from the environment. The patterns are Python regular expressions written so
+# that they do not contain the old paths themselves (this file is published too). The import fails if a pattern
+# does not match exactly COUNT times; the replacement is used literally.
+# Format (tab separated): engine  file  count  pattern  replacement  reason
+arm64	SOURCES.md	1	\(`/[^`]*/spikes/windows-apps/downloads`\)	(`spikes/windows-apps/downloads` in ADP Monitor)	the test programs' folder was named by its place on the build Mac
+arm64	env.sh	1	PROFILE="\$\{ADP_PROFILE:-/[^}]*\}"	PROFILE="${ADP_PROFILE:-$SPIKE/../../dist/profiles/ADP_Monitor_Windows_Engine_Developer_ID.provisionprofile}"	default provisioning profile: now relative to the ADP Monitor checkout
+arm64	fetch.sh	1	seed="\$\{ADP_EXT_SEED:-/[^}]*\}"	seed="${ADP_EXT_SEED:-$SPIKE/../windows-engine-release/downloads/fetch}"	default folder of earlier verified downloads: now relative to the ADP Monitor checkout
+arm64	helper-check.sh	1	"/[^"]*/dist/stage/engine-arm64-11\.18-1/lib/wine/aarch64-unix/WineHost\.app"	"${ADP_OLD_WINEHOST:-$DIST/stage/engine-arm64-11.18-1/lib/wine/aarch64-unix/WineHost.app}"	the second control (the withdrawn 11.18-1 loader) was named by its place on the build Mac
+arm64	programs.sh	1	from="\$\{1:-/[^}]*/spikes/windows-apps/downloads\}"	from="${1:-$SPIKE/../windows-apps/downloads}"	default folder of the test programs: now relative to the ADP Monitor checkout
+x86_64	env.sh	2	\$MAIN_CHECKOUT/\.claude/(?:worktrees)/[^/]+/spikes/windows-engine-arm64	$MAIN_CHECKOUT/spikes/windows-engine-arm64	default arm64 build folder (seed downloads, Hadron checkout) was a work folder of the build Mac
+arm64	RESULTS.md	1	`/var/folders` or `/Users/[a-z]+` anywhere	`/var/folders` or the build Mac's home folder anywhere	named the build Mac's home folder
+x86_64	env.sh	1	this folder may be in a worktree under \.claude/(?:worktrees)\)	this folder may be in a git worktree)	named the work folders of the tool that ran the build

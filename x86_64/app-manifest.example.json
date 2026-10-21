@@ -1,0 +1,20 @@
+{
+  "arch": "x86_64",
+  "archiveRoot": "engine-x86_64-11.18-1",
+  "bytes": 59976376,
+  "label": "Wine 11.18 (ADP Monitor engine-x86_64-11.18-1)",
+  "licence": "Wine 11.18 is LGPL 2.1+, built from source by ADP Monitor with 16 of Hadron's patches and 3 of ours; GnuTLS, Nettle, GMP and libtasn1 (LGPL) and FreeType (FTL) inside. Licences, notices and sources: licenses/ in the engine. Source: https://gitlab.winehq.org/wine/wine (commit 6880117619af)",
+  "nativeBinaries": [
+    "bin/wine",
+    "bin/wineserver",
+    "lib/wine/x86_64-unix/wine",
+    "lib/wine/x86_64-unix/ntdll.so"
+  ],
+  "sha256": "bb512d1e1433926305707bed0ff24a10c481fc3d1a217abdee7a296f09788e87",
+  "urls": [
+    "https://REPLACE-WITH-HOSTED-URL/engine-x86_64-11.18-1.tar.xz"
+  ],
+  "version": "11.18-1",
+  "wine": "bin/wine",
+  "wineserver": "bin/wineserver"
+}

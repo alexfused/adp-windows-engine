@@ -1,0 +1,19 @@
+# SPDX-License-Identifier: MIT
+# Upstream files of this release: the corresponding source the two engines were built from. tools/fetch.sh
+# downloads each into downloads/fetch/<id>/<file> and refuses one whose SHA-256 differs from the pin here.
+# engine: arm64, x86_64 or both. ship: "source" = a release asset.
+# The hashes are the ones the engines' own build scripts pin (arm64/ext.conf, x86_64/sources.tsv), which took them
+# from Homebrew's formulae; the Wine archive has no published hash (tools/verify.sh shows that the archive plus
+# each engine's patches gives exactly the tree that engine was built from).
+# id	engine	ship	file	sha256	hash_source	urls
+wine-6880117	both	source	wine-6880117619afdf62b4ccc40a8c6268c86613131f.tar.gz	4dbd908aaf6207da5a540ee4681c79f8a3523240c12a80989a6e075c86ae893f	none published; pinned by x86_64/sources.tsv; verify.sh rebuilds both engines' Wine trees from it	https://gitlab.winehq.org/wine/wine/-/archive/6880117619afdf62b4ccc40a8c6268c86613131f/wine-6880117619afdf62b4ccc40a8c6268c86613131f.tar.gz
+gmp-6.3.0	both	source	gmp-6.3.0.tar.xz	a3c2b80201b89e68616f4ad30bc66aee4927c3ce50e33929ca819d5c43538898	Homebrew formula gmp 6.3.0	https://gmplib.org/download/gmp/gmp-6.3.0.tar.xz https://mirrors.kernel.org/gnu/gmp/gmp-6.3.0.tar.xz https://ftp.gnu.org/gnu/gmp/gmp-6.3.0.tar.xz
+nettle-4.0	both	source	nettle-4.0.tar.gz	3addbc00da01846b232fb3bc453538ea5468da43033f21bb345cb1e9073f5094	Homebrew formula nettle 4.0	https://mirrors.kernel.org/gnu/nettle/nettle-4.0.tar.gz https://ftp.gnu.org/gnu/nettle/nettle-4.0.tar.gz
+libtasn1-4.21.0	both	source	libtasn1-4.21.0.tar.gz	1d8a444a223cc5464240777346e125de51d8e6abf0b8bac742ac84609167dc87	Homebrew formula libtasn1 4.21.0	https://mirrors.kernel.org/gnu/libtasn1/libtasn1-4.21.0.tar.gz https://ftp.gnu.org/gnu/libtasn1/libtasn1-4.21.0.tar.gz
+gnutls-3.8.13	both	source	gnutls-3.8.13.tar.xz	ffed8ec1bf09c2426d4f14aae377de4753b53e537d685e604e99a8b16ca9c97e	Homebrew formula gnutls 3.8.13_2	https://www.gnupg.org/ftp/gcrypt/gnutls/v3.8/gnutls-3.8.13.tar.xz https://www.mirrorservice.org/sites/ftp.gnupg.org/gcrypt/gnutls/v3.8/gnutls-3.8.13.tar.xz
+gnutls-3.8.13-29c2027c	both	source	gnutls-3.8.13-29c2027c.diff	c0bfc0164ff131c9d2e1c4d0367430f8b767b64c9c21e0f408bd634d21fb0302	Homebrew formula gnutls 3.8.13_2 (patch block): upstream GnuTLS commit 29c2027c, applied by both builds	https://gitlab.com/gnutls/gnutls/-/commit/29c2027c963cf559817d0da37c1fc2efd0c1bd6a.diff
+libunistring-1.4.2	arm64	source	libunistring-1.4.2.tar.gz	e82664b170064e62331962126b259d452d53b227bb4a93ab20040d846fec01d8	Homebrew formula libunistring 1.4.2	https://mirrors.kernel.org/gnu/libunistring/libunistring-1.4.2.tar.gz https://ftp.gnu.org/gnu/libunistring/libunistring-1.4.2.tar.gz
+libidn2-2.3.8	arm64	source	libidn2-2.3.8.tar.gz	f557911bf6171621e1f72ff35f5b1825bb35b52ed45325dcdee931e5d3c0787a	Homebrew formula libidn2 2.3.8	https://mirrors.kernel.org/gnu/libidn/libidn2-2.3.8.tar.gz https://ftp.gnu.org/gnu/libidn/libidn2-2.3.8.tar.gz
+libpng-1.6.59	arm64	source	libpng-1.6.59.tar.xz	d80dd2a38a37f803cb9b6ac7b14bd6e74ddc3b654780a8380bdf93523fdb4389	Homebrew formula libpng 1.6.59	https://downloads.sourceforge.net/project/libpng/libpng16/1.6.59/libpng-1.6.59.tar.xz
+freetype-2.14.3	arm64	source	freetype-2.14.3.tar.xz	36bc4f1cc413335368ee656c42afca65c5a3987e8768cc28cf11ba775e785a5f	Homebrew formula freetype 2.14.3	https://download.savannah.gnu.org/releases/freetype/freetype-2.14.3.tar.xz https://downloads.sourceforge.net/project/freetype/freetype2/2.14.3/freetype-2.14.3.tar.xz
+freetype-2.15.0	x86_64	source	freetype-2.15.0.tar.xz	93cd47eb719c325107f2d3cf087d06299e944c3b48a40b55537302304dea1dd5	Homebrew formula freetype 2.15.0	https://downloads.sourceforge.net/project/freetype/freetype2/2.15.0/freetype-2.15.0.tar.xz https://download.savannah.gnu.org/releases/freetype/freetype-2.15.0.tar.xz

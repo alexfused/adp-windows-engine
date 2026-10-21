@@ -1,0 +1,45 @@
+From: ADP Monitor Windows engine build <276656355+alexfused@users.noreply.github.com>
+Subject: [PATCH] crypt32: Take root certificates only from the Keychain on macOS.
+
+On macOS, crypt32 reads the root certificates from the Keychain's trust
+settings, and only if that gives none it scans certificate files and
+folders meant for Linux and BSD, among them /usr/local/share/certs/. On
+an Intel Mac /usr/local is Homebrew's folder, writable without
+administrator rights, so leave the fallback list out on macOS.
+
+This change is licensed like Wine: LGPL-2.1-or-later.
+---
+
+--- a/dlls/crypt32/unixlib.c
++++ b/dlls/crypt32/unixlib.c
+@@ -944,6 +944,9 @@
+     }
+ }
+ 
++/* Not on macOS: there the Keychain's trust settings are the only source of root certificates
++ * (on an Intel Mac /usr/local is Homebrew's folder, writable without administrator rights). */
++#ifndef __APPLE__
+ static const char * const CRYPT_knownLocations[] = {
+  "/etc/ssl/certs/ca-certificates.crt",
+  "/etc/ssl/certs",
+@@ -953,6 +956,7 @@
+  "/etc/sfw/openssl/certs",
+  "/etc/security/cacerts",  /* Android */
+ };
++#endif
+ 
+ static void load_root_certs(void)
+ {
+@@ -989,10 +993,10 @@
+             CFRelease(certs);
+         }
+     }
+-#endif
+-
++#else
+     for (i = 0; i < ARRAY_SIZE(CRYPT_knownLocations) && list_empty(&root_cert_list); i++)
+         import_certs_from_path( CRYPT_knownLocations[i], TRUE );
++#endif
+ }
+ 
+ static NTSTATUS enum_root_certs( void *args )

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!-- Hardened-runtime exceptions for WineHost.app, on top of the profile's
+     application-identifier, team-identifier and cross-architecture-support (package.sh adds those).
+     entitlement-matrix.sh (RESULTS.md) found both needed: without allow-unsigned-executable-memory
+     the loader is killed during wineboot; without disable-library-validation Wine cannot map PE
+     files executable. allow-jit is not needed (cross-architecture support allows MAP_JIT), so the
+     engine does not claim it since engine-arm64-11.18-2. -->
+<plist version="1.0">
+<dict>
+    <key>com.apple.security.cs.allow-unsigned-executable-memory</key>
+    <true/>
+    <key>com.apple.security.cs.disable-library-validation</key>
+    <true/>
+</dict>
+</plist>

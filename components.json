@@ -1,0 +1,1372 @@
+{
+ "engines": {
+  "arm64": {
+   "name": "engine-arm64-11.18-2",
+   "for": "Apple silicon, macOS 27 or later, no Rosetta",
+   "title": "Apple silicon engine, engine-arm64-11.18-2",
+   "summary": "Wine 11.18 development snapshot (arm64 host, ARM64EC, i386 WoW64) built from source with 30 of Hadron's Wine patches, plus FEX (x86 and x86-64 emulation inside Wine) with Hadron's 5 FEX patches, plus FreeType, libpng and GnuTLS with Nettle, GMP, libtasn1, libidn2 and libunistring, each built from its release tarball.",
+   "modified": "Wine and FEX are modified: Hadron's patches listed in patches.conf were applied (git am) to the upstream commits named below, and the result was built on 21 October 2026 with the scripts in adp-engine-arm64-11.18-2-build.tar.xz. The libraries in lib/ext were built from their upstream tarballs by build-ext.sh, with GnuTLS's upstream commit 29c2027c applied; their install names were then rewritten to @loader_path, local symbols stripped, and every Mach-O file signed with Alex Parkin's Developer ID under the engine's own identifier com.alexparkin.adpmonitor.winehost.",
+   "sources": "The complete corresponding source of every LGPL and GPL component listed below, the source of every other library built into lib/ext, and the scripts used to build, install and package them, are files of the same GitHub release as the engine."
+  },
+  "x86_64": {
+   "name": "engine-x86_64-11.18-1",
+   "for": "Intel Macs, macOS 12.3 or later",
+   "title": "Intel engine, engine-x86_64-11.18-1",
+   "summary": "Wine 11.18 development snapshot (x86_64 host, i386 and x86_64 Windows code through WoW64) built from source with 16 of Hadron's Wine patches and 3 of ours, plus FreeType and GnuTLS with Nettle, GMP and libtasn1, each built from its release tarball. Cross-compiled on an Apple silicon Mac for macOS 12.3 or later.",
+   "modified": "Wine is modified: 16 of Hadron's patches (patches.conf) and our 3 patches (patches/) were applied (patch -F0) to the upstream commit named below, and the result was built on 21 October 2026 with the scripts in adp-engine-x86_64-11.18-1-build.tar.xz. The libraries in lib/ext were cross-compiled from their upstream tarballs by build-deps.sh, with GnuTLS's upstream commit 29c2027c applied; their install names were then rewritten to @loader_path, local symbols stripped, and every Mach-O file signed with Alex Parkin's Developer ID under the engine's own identifier com.alexparkin.adpmonitor.winehost.",
+   "sources": "The complete corresponding source of every LGPL and GPL component listed below, the source of FreeType, and the scripts used to build, install and package them, are files of the same GitHub release as the engine."
+  }
+ },
+ "components": [
+  {
+   "engine": "arm64",
+   "name": "Wine",
+   "version": "11.18 + 246 commits (6880117619af, 28 Sep 2026) + 30 Hadron patches; builds as wine-11.18-276-g8f4bf95c31",
+   "licence": "LGPL-2.1-or-later",
+   "where": "bin/, lib/wine/aarch64-unix/*.so and WineHost.app (the loader), lib/wine/aarch64-windows/, lib/wine/i386-windows/, share/wine/",
+   "texts": [
+    "arm64/wine/LICENSE",
+    "arm64/wine/COPYING.LIB",
+    "arm64/wine/AUTHORS"
+   ],
+   "source": [
+    "wine-6880117619afdf62b4ccc40a8c6268c86613131f.tar.gz",
+    "adp-engine-arm64-11.18-2-build.tar.xz"
+   ],
+   "copyright": [
+    "Copyright (c) 1993-2026 the Wine project authors (see the file AUTHORS for a complete list)"
+   ]
+  },
+  {
+   "engine": "arm64",
+   "name": "Hadron Wine patch queue (30 of 39 applied)",
+   "version": "Hadron d523fe6b8fa0 (0.3.1, 20 Oct 2026)",
+   "licence": "LGPL-2.1-or-later",
+   "where": "compiled into Wine (ntdll, winemac.drv, win32u, the loader, wine.inf)",
+   "texts": [
+    "arm64/hadron/patches-wine-LICENSE",
+    "arm64/hadron/patches-wine-COPYING.LIB",
+    "arm64/hadron/LICENSE"
+   ],
+   "source": [
+    "adp-engine-arm64-11.18-2-build.tar.xz"
+   ]
+  },
+  {
+   "engine": "arm64",
+   "name": "Wine fonts (tahoma.ttf and tahomabd.ttf are derived from Bitstream Vera Sans)",
+   "version": "Wine 11.18 tree",
+   "licence": "LGPL-2.1-or-later; Bitstream Vera licence for the Vera-derived glyphs",
+   "where": "share/wine/fonts/",
+   "texts": [
+    "arm64/wine/NOTICES.md"
+   ],
+   "source": [
+    "wine-6880117619afdf62b4ccc40a8c6268c86613131f.tar.gz"
+   ],
+   "sections": [
+    "Bitstream Vera Sans"
+   ]
+  },
+  {
+   "engine": "arm64",
+   "name": "Wine NLS and ICU data (Unicode data)",
+   "version": "Wine 11.18 tree; icudtl.dat from MS-ICU 72.1.0.3",
+   "licence": "Unicode-3.0",
+   "where": "share/wine/nls/",
+   "texts": [
+    "arm64/wine/NOTICES.md"
+   ],
+   "source": [
+    "wine-6880117619afdf62b4ccc40a8c6268c86613131f.tar.gz"
+   ],
+   "sections": [
+    "Unicode data files"
+   ]
+  },
+  {
+   "engine": "arm64",
+   "name": "Third-party code imported into Wine (Adobe glyph list, BCDec, DirectXMath, GIFLIB, GLU, IAccessible2, OpenCL headers, RTF Tools, STB DXT, Unicode bidi, WPF, X11 and pre-2002 Wine code)",
+   "version": "as imported in the Wine 11.18 tree",
+   "licence": "BSD-3-Clause, MIT, SGI-B-2.0, Unicode-3.0, X11 and others (see NOTICES.md)",
+   "where": "inside Wine's PE DLLs",
+   "texts": [
+    "arm64/wine/NOTICES.md"
+   ],
+   "source": [
+    "wine-6880117619afdf62b4ccc40a8c6268c86613131f.tar.gz"
+   ],
+   "sections": [
+    "Adobe glyph list",
+    "BCDec",
+    "DirectXMath",
+    "An Efficient and Robust Ray-Box Intersection Algorithm (article)",
+    "GIFLIB",
+    "GLU",
+    "IAccessible2",
+    "OpenCL specification",
+    "RTF Tools",
+    "STB DXT",
+    "Unicode Bidirectional Algorithm",
+    "Windows Presentation Foundation",
+    "Wine until release 20020228",
+    "X11"
+   ]
+  },
+  {
+   "engine": "arm64",
+   "name": "LLVM compiler-rt builtins, libc++, libc++abi and libunwind (bundled in Wine)",
+   "version": "8.0.1",
+   "licence": "NCSA OR MIT",
+   "where": "compiler-rt in most PE modules; libc++ in icu.dll and dmsynth.dll",
+   "texts": [
+    "arm64/wine/NOTICES.md",
+    "arm64/wine/libs-compiler-rt-LICENSE.TXT",
+    "arm64/wine/libs-c++-LICENSE.TXT",
+    "arm64/wine/libs-c++abi-LICENSE.TXT",
+    "arm64/wine/libs-unwind-LICENSE.TXT"
+   ],
+   "source": [
+    "wine-6880117619afdf62b4ccc40a8c6268c86613131f.tar.gz"
+   ],
+   "sections": [
+    "LLVM C++ libraries"
+   ]
+  },
+  {
+   "engine": "arm64",
+   "name": "FFmpeg subset: libavutil, libswresample, libswscale (bundled in Wine)",
+   "version": "8.1.1, configured with GPL, nonfree and version3 parts off",
+   "licence": "LGPL-2.1-or-later",
+   "where": "colorcnv.dll, iyuv_32.dll, msvproc.dll, resampledmo.dll, vidreszr.dll",
+   "texts": [
+    "arm64/wine/NOTICES.md",
+    "arm64/wine/COPYING.LIB",
+    "arm64/wine/libs-ffmpeg-LICENSE.md"
+   ],
+   "source": [
+    "wine-6880117619afdf62b4ccc40a8c6268c86613131f.tar.gz"
+   ],
+   "sections": [
+    "FFmpeg"
+   ]
+  },
+  {
+   "engine": "arm64",
+   "name": "FluidSynth (bundled in Wine)",
+   "version": "2.4.3",
+   "licence": "LGPL-2.1-or-later",
+   "where": "dmsynth.dll",
+   "texts": [
+    "arm64/wine/NOTICES.md",
+    "arm64/wine/COPYING.LIB",
+    "arm64/wine/libs-fluidsynth-AUTHORS",
+    "arm64/wine/libs-fluidsynth-COPYING.md"
+   ],
+   "source": [
+    "wine-6880117619afdf62b4ccc40a8c6268c86613131f.tar.gz"
+   ],
+   "sections": [
+    "FluidSynth"
+   ]
+  },
+  {
+   "engine": "arm64",
+   "name": "mpg123 (bundled in Wine)",
+   "version": "1.33.5",
+   "licence": "LGPL-2.1",
+   "where": "l3codeca.acm, mp3dmod.dll",
+   "texts": [
+    "arm64/wine/NOTICES.md",
+    "arm64/wine/COPYING.LIB",
+    "arm64/wine/libs-mpg123-AUTHORS",
+    "arm64/wine/libs-mpg123-LICENSE"
+   ],
+   "source": [
+    "wine-6880117619afdf62b4ccc40a8c6268c86613131f.tar.gz"
+   ],
+   "sections": [
+    "Mpg123"
+   ]
+  },
+  {
+   "engine": "arm64",
+   "name": "vkd3d (bundled in Wine)",
+   "version": "2.1",
+   "licence": "LGPL-2.1-or-later",
+   "where": "wined3d.dll",
+   "texts": [
+    "arm64/wine/NOTICES.md",
+    "arm64/wine/COPYING.LIB",
+    "arm64/wine/libs-vkd3d-AUTHORS",
+    "arm64/wine/libs-vkd3d-COPYING"
+   ],
+   "source": [
+    "wine-6880117619afdf62b4ccc40a8c6268c86613131f.tar.gz"
+   ],
+   "sections": [
+    "Vkd3d"
+   ]
+  },
+  {
+   "engine": "arm64",
+   "name": "Capstone (bundled in Wine)",
+   "version": "5.0.3",
+   "licence": "BSD-3-Clause, NCSA for LLVM-derived parts",
+   "where": "winedbg.exe",
+   "texts": [
+    "arm64/wine/NOTICES.md",
+    "arm64/wine/libs-capstone-LICENSE.TXT",
+    "arm64/wine/libs-capstone-LICENSE_LLVM.TXT"
+   ],
+   "source": [
+    "wine-6880117619afdf62b4ccc40a8c6268c86613131f.tar.gz"
+   ],
+   "sections": [
+    "Capstone"
+   ]
+  },
+  {
+   "engine": "arm64",
+   "name": "FAudio (bundled in Wine)",
+   "version": "26.09",
+   "licence": "Zlib",
+   "where": "xaudio2_*, xactengine*, x3daudio1_*, xapofx1_* DLLs",
+   "texts": [
+    "arm64/wine/libs-faudio-LICENSE"
+   ],
+   "source": [
+    "wine-6880117619afdf62b4ccc40a8c6268c86613131f.tar.gz"
+   ]
+  },
+  {
+   "engine": "arm64",
+   "name": "GSM 06.10 (bundled in Wine)",
+   "version": "1.0.19",
+   "licence": "TU Berlin GSM licence (permissive)",
+   "where": "msgsm32.acm",
+   "texts": [
+    "arm64/wine/libs-gsm-COPYRIGHT"
+   ],
+   "source": [
+    "wine-6880117619afdf62b4ccc40a8c6268c86613131f.tar.gz"
+   ]
+  },
+  {
+   "engine": "arm64",
+   "name": "MS-ICU icucommon and icui18n (bundled in Wine)",
+   "version": "72.1.0.3",
+   "licence": "Unicode-3.0",
+   "where": "icu.dll",
+   "texts": [
+    "arm64/wine/NOTICES.md",
+    "arm64/wine/libs-icucommon-LICENSE",
+    "arm64/wine/libs-icui18n-LICENSE"
+   ],
+   "source": [
+    "wine-6880117619afdf62b4ccc40a8c6268c86613131f.tar.gz"
+   ],
+   "sections": [
+    "ICU"
+   ]
+  },
+  {
+   "engine": "arm64",
+   "name": "libjpeg (IJG, bundled in Wine)",
+   "version": "release 10",
+   "licence": "IJG",
+   "where": "windowscodecs.dll",
+   "texts": [
+    "arm64/wine/NOTICES.md",
+    "arm64/wine/libs-jpeg-LICENSE"
+   ],
+   "source": [
+    "wine-6880117619afdf62b4ccc40a8c6268c86613131f.tar.gz"
+   ],
+   "credit": "This software is based in part on the work of the Independent JPEG Group.",
+   "sections": [
+    "LibJPEG"
+   ]
+  },
+  {
+   "engine": "arm64",
+   "name": "jxrlib (bundled in Wine)",
+   "version": "1.1",
+   "licence": "BSD-2-Clause",
+   "where": "wmphoto.dll",
+   "texts": [
+    "arm64/wine/NOTICES.md",
+    "arm64/wine/libs-jxr-LICENSE"
+   ],
+   "source": [
+    "wine-6880117619afdf62b4ccc40a8c6268c86613131f.tar.gz"
+   ],
+   "sections": [
+    "JXR"
+   ]
+  },
+  {
+   "engine": "arm64",
+   "name": "Little CMS (bundled in Wine)",
+   "version": "2.19.1",
+   "licence": "MIT",
+   "where": "mscms.dll",
+   "texts": [
+    "arm64/wine/NOTICES.md",
+    "arm64/wine/libs-lcms2-AUTHORS",
+    "arm64/wine/libs-lcms2-COPYING"
+   ],
+   "source": [
+    "wine-6880117619afdf62b4ccc40a8c6268c86613131f.tar.gz"
+   ],
+   "sections": [
+    "Little CMS"
+   ]
+  },
+  {
+   "engine": "arm64",
+   "name": "OpenLDAP (bundled in Wine)",
+   "version": "2.5.18",
+   "licence": "OLDAP-2.8",
+   "where": "wldap32.dll",
+   "texts": [
+    "arm64/wine/NOTICES.md",
+    "arm64/wine/libs-ldap-COPYRIGHT",
+    "arm64/wine/libs-ldap-LICENSE"
+   ],
+   "source": [
+    "wine-6880117619afdf62b4ccc40a8c6268c86613131f.tar.gz"
+   ],
+   "sections": [
+    "OpenLDAP"
+   ]
+  },
+  {
+   "engine": "arm64",
+   "name": "musl maths library (bundled in Wine)",
+   "version": "1.2.3",
+   "licence": "MIT",
+   "where": "msvcrt*, msvcr70-120, crtdll, ucrtbase, ntdll",
+   "texts": [
+    "arm64/wine/NOTICES.md",
+    "arm64/wine/libs-musl-COPYRIGHT"
+   ],
+   "source": [
+    "wine-6880117619afdf62b4ccc40a8c6268c86613131f.tar.gz"
+   ],
+   "sections": [
+    "Musl"
+   ]
+  },
+  {
+   "engine": "arm64",
+   "name": "libpng (Wine's own copy)",
+   "version": "1.6.58",
+   "licence": "libpng-2.0",
+   "where": "user32.dll, windowscodecs.dll",
+   "texts": [
+    "arm64/wine/NOTICES.md",
+    "arm64/wine/libs-png-AUTHORS",
+    "arm64/wine/libs-png-LICENSE"
+   ],
+   "source": [
+    "wine-6880117619afdf62b4ccc40a8c6268c86613131f.tar.gz"
+   ],
+   "sections": [
+    "LibPNG"
+   ]
+  },
+  {
+   "engine": "arm64",
+   "name": "SQLite (bundled in Wine)",
+   "version": "3.53.2",
+   "licence": "blessing (public domain)",
+   "where": "winsqlite3.dll",
+   "texts": [
+    "arm64/wine/NOTICES.md"
+   ],
+   "source": [
+    "wine-6880117619afdf62b4ccc40a8c6268c86613131f.tar.gz"
+   ],
+   "sections": [
+    "SQLite3"
+   ]
+  },
+  {
+   "engine": "arm64",
+   "name": "SymCrypt (bundled in Wine)",
+   "version": "103.11.0",
+   "licence": "MIT",
+   "where": "bcrypt.dll, dssenh.dll, rsaenh.dll, ntdll.dll",
+   "texts": [
+    "arm64/wine/NOTICES.md",
+    "arm64/wine/libs-symcrypt-LICENSE.txt"
+   ],
+   "source": [
+    "wine-6880117619afdf62b4ccc40a8c6268c86613131f.tar.gz"
+   ],
+   "sections": [
+    "SymCrypt"
+   ]
+  },
+  {
+   "engine": "arm64",
+   "name": "LibTIFF (bundled in Wine)",
+   "version": "4.7.1",
+   "licence": "libtiff",
+   "where": "windowscodecs.dll",
+   "texts": [
+    "arm64/wine/NOTICES.md",
+    "arm64/wine/libs-tiff-COPYRIGHT"
+   ],
+   "source": [
+    "wine-6880117619afdf62b4ccc40a8c6268c86613131f.tar.gz"
+   ],
+   "sections": [
+    "LibTIFF"
+   ]
+  },
+  {
+   "engine": "arm64",
+   "name": "libxml2 and libxslt (bundled in Wine)",
+   "version": "libxml2 2.12.10, libxslt 1.1.45",
+   "licence": "MIT",
+   "where": "msxml3.dll",
+   "texts": [
+    "arm64/wine/NOTICES.md",
+    "arm64/wine/libs-xml2-AUTHORS",
+    "arm64/wine/libs-xml2-COPYING",
+    "arm64/wine/libs-xslt-AUTHORS",
+    "arm64/wine/libs-xslt-COPYING"
+   ],
+   "source": [
+    "wine-6880117619afdf62b4ccc40a8c6268c86613131f.tar.gz"
+   ],
+   "sections": [
+    "LibXML2",
+    "LibXSLT"
+   ]
+  },
+  {
+   "engine": "arm64",
+   "name": "zlib (bundled in Wine)",
+   "version": "1.3.2",
+   "licence": "Zlib",
+   "where": "cabinet, dbghelp, ntdll, opcservices, user32, windowscodecs, winhttp, wininet",
+   "texts": [
+    "arm64/wine/NOTICES.md",
+    "arm64/wine/libs-zlib-LICENSE"
+   ],
+   "source": [
+    "wine-6880117619afdf62b4ccc40a8c6268c86613131f.tar.gz"
+   ],
+   "sections": [
+    "ZLib"
+   ]
+  },
+  {
+   "engine": "arm64",
+   "name": "FEX (x86 and x86-64 emulator)",
+   "version": "0df84d3844bc (28 Sep 2026) + 5 Hadron FEX patches (patched HEAD a5eec1a8ce41)",
+   "licence": "MIT; four Wine headers compiled in are LGPL-2.1-or-later",
+   "where": "lib/wine/aarch64-windows/libarm64ecfex.dll (= xtajit64.dll), libwow64fex.dll (= xtajit.dll), lib/wine/aarch64-unix/libarm64ecfex.so, libwow64fex.so",
+   "texts": [
+    "arm64/fex/LICENSE",
+    "arm64/hadron/patches-fex-LICENSE",
+    "arm64/wine/COPYING.LIB"
+   ],
+   "source": [
+    "fex-0df84d3844bcdb87bb7d3f5b8fb0959cd009c038-src.tar.xz",
+    "adp-engine-arm64-11.18-2-build.tar.xz"
+   ]
+  },
+  {
+   "engine": "arm64",
+   "name": "Berkeley SoftFloat 3e (in FEX)",
+   "version": "Release 3e",
+   "licence": "BSD-3-Clause",
+   "where": "the four FEX files",
+   "texts": [
+    "arm64/fex/SoftFloat-3e-NOTICE"
+   ],
+   "source": [
+    "fex-0df84d3844bcdb87bb7d3f5b8fb0959cd009c038-src.tar.xz"
+   ]
+  },
+  {
+   "engine": "arm64",
+   "name": "cephes 128-bit maths (in FEX)",
+   "version": "FEX External/cephes at 0df84d38",
+   "licence": "BSD-style (netlib cephes terms)",
+   "where": "the four FEX files",
+   "texts": [
+    "arm64/fex/cephes-LICENSE"
+   ],
+   "source": [
+    "fex-0df84d3844bcdb87bb7d3f5b8fb0959cd009c038-src.tar.xz"
+   ]
+  },
+  {
+   "engine": "arm64",
+   "name": "{fmt} (in FEX)",
+   "version": "c07e2aa4b130 (12.2.0-83)",
+   "licence": "MIT",
+   "where": "the four FEX files",
+   "texts": [
+    "arm64/fex/fmt-LICENSE"
+   ],
+   "source": [
+    "fex-0df84d3844bcdb87bb7d3f5b8fb0959cd009c038-src.tar.xz"
+   ]
+  },
+  {
+   "engine": "arm64",
+   "name": "xxHash library (in FEX)",
+   "version": "0.8.3",
+   "licence": "BSD-2-Clause",
+   "where": "the four FEX files",
+   "texts": [
+    "arm64/fex/xxhash-LICENSE"
+   ],
+   "source": [
+    "fex-0df84d3844bcdb87bb7d3f5b8fb0959cd009c038-src.tar.xz"
+   ]
+  },
+  {
+   "engine": "arm64",
+   "name": "tiny-json (in FEX)",
+   "version": "FEX External/tiny-json at 0df84d38",
+   "licence": "MIT",
+   "where": "the four FEX files",
+   "texts": [
+    "arm64/fex/tiny-json-LICENSE"
+   ],
+   "source": [
+    "fex-0df84d3844bcdb87bb7d3f5b8fb0959cd009c038-src.tar.xz"
+   ]
+  },
+  {
+   "engine": "arm64",
+   "name": "unordered_dense (in FEX)",
+   "version": "4.8.1",
+   "licence": "MIT",
+   "where": "the four FEX files",
+   "texts": [
+    "arm64/fex/unordered_dense-LICENSE"
+   ],
+   "source": [
+    "fex-0df84d3844bcdb87bb7d3f5b8fb0959cd009c038-src.tar.xz"
+   ]
+  },
+  {
+   "engine": "arm64",
+   "name": "rpmalloc (in FEX)",
+   "version": "09142d726429 (develop-10)",
+   "licence": "Unlicense OR MIT",
+   "where": "the four FEX files",
+   "texts": [
+    "arm64/fex/rpmalloc-LICENSE"
+   ],
+   "source": [
+    "fex-0df84d3844bcdb87bb7d3f5b8fb0959cd009c038-src.tar.xz"
+   ]
+  },
+  {
+   "engine": "arm64",
+   "name": "range-v3 (in FEX, header-only)",
+   "version": "ca1388fb9da8 (0.12.0-47)",
+   "licence": "BSL-1.0",
+   "where": "the four FEX files",
+   "texts": [
+    "arm64/fex/range-v3-LICENSE.txt"
+   ],
+   "source": [
+    "fex-0df84d3844bcdb87bb7d3f5b8fb0959cd009c038-src.tar.xz"
+   ]
+  },
+  {
+   "engine": "arm64",
+   "name": "cpp-optparse (in FEX)",
+   "version": "9f94388a339f",
+   "licence": "MIT",
+   "where": "the four FEX files",
+   "texts": [
+    "arm64/fex/cpp-optparse-LICENSE"
+   ],
+   "source": [
+    "fex-0df84d3844bcdb87bb7d3f5b8fb0959cd009c038-src.tar.xz"
+   ]
+  },
+  {
+   "engine": "arm64",
+   "name": "VIXL utilities (in FEX's code emitter, CodeEmitter/CodeEmitter/VixlUtils.inl)",
+   "version": "FEX 0df84d3844bc tree (functions taken from VIXL; the VIXL library itself is not compiled)",
+   "licence": "BSD-3-Clause",
+   "where": "the two FEX DLLs: libarm64ecfex.dll (= xtajit64.dll), libwow64fex.dll (= xtajit.dll)",
+   "texts": [
+    "arm64/fex/VIXL-NOTICE"
+   ],
+   "source": [
+    "fex-0df84d3844bcdb87bb7d3f5b8fb0959cd009c038-src.tar.xz"
+   ],
+   "copyright": [
+    "Copyright 2015, VIXL authors"
+   ]
+  },
+  {
+   "engine": "arm64",
+   "name": "musl routines (in FEX's Windows runtime, Source/Windows/Common/CRT/Musl)",
+   "version": "FEX 0df84d3844bc tree (20 files from musl: strtoll and relatives, fmod, remainder, remquo, isnan, exp2, log2)",
+   "licence": "MIT",
+   "where": "the two FEX DLLs: libarm64ecfex.dll (= xtajit64.dll), libwow64fex.dll (= xtajit.dll)",
+   "texts": [
+    "arm64/fex/Musl-COPYRIGHT"
+   ],
+   "source": [
+    "fex-0df84d3844bcdb87bb7d3f5b8fb0959cd009c038-src.tar.xz"
+   ],
+   "copyright": [
+    "Copyright © 2005-2020 Rich Felker, et al.",
+    "Copyright (c) 2018, Arm Limited (exp2, log2 and their data tables)"
+   ],
+   "note": "FEX's copies carry only SPDX lines; the licence text is musl's own COPYRIGHT file, taken from the copy of musl in Wine's tree."
+  },
+  {
+   "engine": "arm64",
+   "name": "llvm-mingw runtime (libc++, libc++abi, libunwind, compiler-rt builtins) in the FEX DLLs",
+   "version": "llvm-mingw 20260922 (LLVM 23.1.2)",
+   "licence": "Apache-2.0 WITH LLVM-exception",
+   "where": "the two FEX DLLs (statically linked)",
+   "texts": [
+    "arm64/llvm-mingw/LICENSE.TXT"
+   ],
+   "source": [],
+   "note": "The LLVM exception waives the notice requirement for code embedded by compiling; the text is included anyway. No source obligation. Toolchain: https://github.com/mstorsjo/llvm-mingw/releases/tag/20260922"
+  },
+  {
+   "engine": "arm64",
+   "name": "FreeType (built from source)",
+   "version": "2.14.3",
+   "licence": "FTL (chosen; FreeType is also offered under GPL-2.0-or-later)",
+   "where": "lib/ext/libfreetype.6.dylib",
+   "texts": [
+    "arm64/freetype/LICENSE.TXT",
+    "arm64/freetype/docs-FTL.TXT",
+    "arm64/freetype/docs-GPLv2.TXT",
+    "arm64/freetype/src-bdf-README",
+    "arm64/freetype/src-pcf-README",
+    "arm64/freetype/src-gzip-zlib.h-NOTICE",
+    "arm64/freetype/src-autofit-ft-hb-ft.c-NOTICE"
+   ],
+   "source": [
+    "freetype-2.14.3.tar.xz",
+    "adp-engine-arm64-11.18-2-build.tar.xz"
+   ],
+   "credit": "Portions of this software are copyright © 2026 The FreeType Project (https://freetype.org). All rights reserved.",
+   "note": "Built from the upstream tarball by build-ext.sh (configure options in the engine's licenses/SOURCES.md), install names rewritten to @loader_path, local symbols stripped, signed. With libpng and macOS's own zlib and bzip2; no HarfBuzz or Brotli."
+  },
+  {
+   "engine": "arm64",
+   "name": "libpng (built from source)",
+   "version": "1.6.59",
+   "licence": "libpng-2.0",
+   "where": "lib/ext/libpng16.16.dylib",
+   "texts": [
+    "arm64/libpng/LICENSE"
+   ],
+   "source": [
+    "libpng-1.6.59.tar.xz",
+    "adp-engine-arm64-11.18-2-build.tar.xz"
+   ],
+   "note": "Built from the upstream tarball by build-ext.sh (configure options in the engine's licenses/SOURCES.md), install names rewritten to @loader_path, local symbols stripped, signed."
+  },
+  {
+   "engine": "arm64",
+   "name": "GnuTLS (built from source)",
+   "version": "3.8.13 with upstream commit 29c2027c (a header build fix)",
+   "licence": "LGPL-2.1-or-later; gnulib parts LGPL-2.1-or-later or LGPL-3.0-or-later; inih BSD-3-Clause; crau MIT OR Unlicense; ARMv8 assembly by Andy Polyakov under the CRYPTOGAMS licence",
+   "where": "lib/ext/libgnutls.30.dylib",
+   "texts": [
+    "arm64/gnutls/COPYING.LESSERv2",
+    "arm64/gnutls/COPYING",
+    "arm64/gnutls/README.md",
+    "arm64/gnutls/AUTHORS",
+    "arm64/gnutls/lib-inih-LICENSE.txt",
+    "arm64/gnutls/lib-crau-LICENSE",
+    "arm64/gnutls/lib-crau-UNLICENSE",
+    "arm64/gnutls/lib-accelerated-aarch64-CRYPTOGAMS-NOTICE",
+    "arm64/gnutls/lib-accelerated-x86-license.txt",
+    "arm64/nettle/COPYING.LESSERv3"
+   ],
+   "source": [
+    "gnutls-3.8.13.tar.xz",
+    "gnutls-3.8.13-29c2027c.diff",
+    "adp-engine-arm64-11.18-2-build.tar.xz"
+   ],
+   "note": "Built from the upstream tarball by build-ext.sh (configure options in the engine's licenses/SOURCES.md), install names rewritten to @loader_path, local symbols stripped, signed. Without p11-kit, NLS, a trust-store file, zlib/brotli/zstd, TPM, tools and DANE."
+  },
+  {
+   "engine": "arm64",
+   "name": "Nettle and Hogweed (built from source)",
+   "version": "4.0",
+   "licence": "LGPL-3.0-or-later (chosen) OR GPL-2.0-or-later",
+   "where": "lib/ext/libnettle.9.dylib, lib/ext/libhogweed.7.dylib",
+   "texts": [
+    "arm64/nettle/COPYING.LESSERv3",
+    "arm64/nettle/COPYINGv3",
+    "arm64/nettle/COPYINGv2"
+   ],
+   "source": [
+    "nettle-4.0.tar.gz",
+    "adp-engine-arm64-11.18-2-build.tar.xz"
+   ],
+   "note": "Built from the upstream tarball by build-ext.sh (configure options in the engine's licenses/SOURCES.md), install names rewritten to @loader_path, local symbols stripped, signed."
+  },
+  {
+   "engine": "arm64",
+   "name": "GMP (built from source)",
+   "version": "6.3.0",
+   "licence": "LGPL-3.0-or-later (chosen) OR GPL-2.0-or-later",
+   "where": "lib/ext/libgmp.10.dylib",
+   "texts": [
+    "arm64/gmp/COPYING.LESSERv3",
+    "arm64/gmp/COPYINGv3",
+    "arm64/gmp/COPYINGv2"
+   ],
+   "source": [
+    "gmp-6.3.0.tar.xz",
+    "adp-engine-arm64-11.18-2-build.tar.xz"
+   ],
+   "note": "Built from the upstream tarball by build-ext.sh (configure options in the engine's licenses/SOURCES.md), install names rewritten to @loader_path, local symbols stripped, signed."
+  },
+  {
+   "engine": "arm64",
+   "name": "libtasn1 (built from source)",
+   "version": "4.21.0",
+   "licence": "LGPL-2.1-or-later (library)",
+   "where": "lib/ext/libtasn1.6.dylib",
+   "texts": [
+    "arm64/libtasn1/COPYING.LESSERv2"
+   ],
+   "source": [
+    "libtasn1-4.21.0.tar.gz",
+    "adp-engine-arm64-11.18-2-build.tar.xz"
+   ],
+   "note": "Built from the upstream tarball by build-ext.sh (configure options in the engine's licenses/SOURCES.md), install names rewritten to @loader_path, local symbols stripped, signed."
+  },
+  {
+   "engine": "arm64",
+   "name": "libidn2 (built from source)",
+   "version": "2.3.8",
+   "licence": "LGPL-3.0-or-later (chosen) OR GPL-2.0-or-later; Unicode data under the Unicode licence",
+   "where": "lib/ext/libidn2.0.dylib",
+   "texts": [
+    "arm64/libidn2/COPYING.LESSERv3",
+    "arm64/libidn2/COPYING",
+    "arm64/libidn2/COPYINGv2",
+    "arm64/libidn2/COPYING.unicode"
+   ],
+   "source": [
+    "libidn2-2.3.8.tar.gz",
+    "adp-engine-arm64-11.18-2-build.tar.xz"
+   ],
+   "note": "Built from the upstream tarball by build-ext.sh (configure options in the engine's licenses/SOURCES.md), install names rewritten to @loader_path, local symbols stripped, signed."
+  },
+  {
+   "engine": "arm64",
+   "name": "libunistring (built from source)",
+   "version": "1.4.2",
+   "licence": "LGPL-3.0-or-later (chosen) OR GPL-2.0",
+   "where": "lib/ext/libunistring.5.dylib",
+   "texts": [
+    "arm64/libunistring/COPYING.LIB",
+    "arm64/libunistring/COPYING"
+   ],
+   "source": [
+    "libunistring-1.4.2.tar.gz",
+    "adp-engine-arm64-11.18-2-build.tar.xz"
+   ],
+   "note": "Built from the upstream tarball by build-ext.sh (configure options in the engine's licenses/SOURCES.md), install names rewritten to @loader_path, local symbols stripped, signed."
+  },
+  {
+   "engine": "arm64",
+   "name": "WineHost.app packaging, ENGINE-NAME and licences folder (ADP Monitor)",
+   "version": "engine-arm64-11.18-2",
+   "licence": "MIT (this repository's LICENSE)",
+   "where": "lib/wine/aarch64-unix/WineHost.app/Contents/Info.plist, ENGINE-NAME, licenses/",
+   "texts": [],
+   "source": [
+    "adp-engine-arm64-11.18-2-build.tar.xz"
+   ],
+   "note": "WineHost.app also carries embedded.provisionprofile: Apple's signing profile for the engine's own App ID, com.alexparkin.adpmonitor.winehost (team 2F2FVY326V). It is not open-source code and grants nothing to other apps."
+  },
+  {
+   "engine": "x86_64",
+   "name": "Wine",
+   "version": "11.18 + 246 commits (6880117619af, 28 Sep 2026) + 16 Hadron patches + 3 of ours",
+   "licence": "LGPL-2.1-or-later",
+   "where": "bin/wine (link to the loader lib/wine/x86_64-unix/wine), bin/wineserver, lib/wine/x86_64-unix/*.so, lib/wine/x86_64-windows/, lib/wine/i386-windows/, share/wine/",
+   "texts": [
+    "x86_64/wine/LICENSE",
+    "x86_64/wine/COPYING.LIB",
+    "x86_64/wine/AUTHORS"
+   ],
+   "source": [
+    "wine-6880117619afdf62b4ccc40a8c6268c86613131f.tar.gz",
+    "adp-engine-x86_64-11.18-1-build.tar.xz"
+   ],
+   "copyright": [
+    "Copyright (c) 1993-2026 the Wine project authors (see the file AUTHORS for a complete list)"
+   ]
+  },
+  {
+   "engine": "x86_64",
+   "name": "Hadron Wine patch queue (16 of 39 applied)",
+   "version": "Hadron d523fe6b8fa0 (0.3.1, 20 Oct 2026)",
+   "licence": "LGPL-2.1-or-later",
+   "where": "compiled into Wine (winemac.drv, win32u, ntdll, wine.inf)",
+   "texts": [
+    "x86_64/hadron/patches-wine-LICENSE",
+    "x86_64/hadron/patches-wine-COPYING.LIB",
+    "x86_64/hadron/LICENSE"
+   ],
+   "source": [
+    "adp-engine-x86_64-11.18-1-build.tar.xz"
+   ]
+  },
+  {
+   "engine": "x86_64",
+   "name": "ADP Monitor's Wine patches (3: the loader's bundle id; l_intl.nls and root certificates only from the engine and the Keychain)",
+   "version": "patches/0001-0003 in the build tarball",
+   "licence": "LGPL-2.1-or-later (like Wine)",
+   "where": "compiled into Wine (the loader's Info.plist, wineserver, crypt32)",
+   "texts": [
+    "x86_64/wine/COPYING.LIB"
+   ],
+   "source": [
+    "adp-engine-x86_64-11.18-1-build.tar.xz"
+   ],
+   "copyright": [
+    "Copyright (c) 2026 Alex Parkin"
+   ]
+  },
+  {
+   "engine": "x86_64",
+   "name": "Wine fonts (tahoma.ttf and tahomabd.ttf are derived from Bitstream Vera Sans)",
+   "version": "Wine 11.18 tree",
+   "licence": "LGPL-2.1-or-later; Bitstream Vera licence for the Vera-derived glyphs",
+   "where": "share/wine/fonts/",
+   "texts": [
+    "x86_64/wine/NOTICES.md"
+   ],
+   "source": [
+    "wine-6880117619afdf62b4ccc40a8c6268c86613131f.tar.gz"
+   ],
+   "sections": [
+    "Bitstream Vera Sans"
+   ]
+  },
+  {
+   "engine": "x86_64",
+   "name": "Wine NLS and ICU data (Unicode data)",
+   "version": "Wine 11.18 tree; icudtl.dat from MS-ICU 72.1.0.3",
+   "licence": "Unicode-3.0",
+   "where": "share/wine/nls/",
+   "texts": [
+    "x86_64/wine/NOTICES.md"
+   ],
+   "source": [
+    "wine-6880117619afdf62b4ccc40a8c6268c86613131f.tar.gz"
+   ],
+   "sections": [
+    "Unicode data files"
+   ]
+  },
+  {
+   "engine": "x86_64",
+   "name": "Third-party code imported into Wine (Adobe glyph list, BCDec, DirectXMath, GIFLIB, GLU, IAccessible2, OpenCL headers, RTF Tools, STB DXT, Unicode bidi, WPF, X11 and pre-2002 Wine code)",
+   "version": "as imported in the Wine 11.18 tree",
+   "licence": "BSD-3-Clause, MIT, SGI-B-2.0, Unicode-3.0, X11 and others (see NOTICES.md)",
+   "where": "inside Wine's PE DLLs",
+   "texts": [
+    "x86_64/wine/NOTICES.md"
+   ],
+   "source": [
+    "wine-6880117619afdf62b4ccc40a8c6268c86613131f.tar.gz"
+   ],
+   "sections": [
+    "Adobe glyph list",
+    "BCDec",
+    "DirectXMath",
+    "An Efficient and Robust Ray-Box Intersection Algorithm (article)",
+    "GIFLIB",
+    "GLU",
+    "IAccessible2",
+    "OpenCL specification",
+    "RTF Tools",
+    "STB DXT",
+    "Unicode Bidirectional Algorithm",
+    "Windows Presentation Foundation",
+    "Wine until release 20020228",
+    "X11"
+   ]
+  },
+  {
+   "engine": "x86_64",
+   "name": "LLVM compiler-rt builtins, libc++, libc++abi and libunwind (bundled in Wine)",
+   "version": "8.0.1",
+   "licence": "NCSA OR MIT",
+   "where": "compiler-rt in most PE modules; libc++ in icu.dll and dmsynth.dll",
+   "texts": [
+    "x86_64/wine/NOTICES.md",
+    "x86_64/wine/libs-compiler-rt-LICENSE.TXT",
+    "x86_64/wine/libs-c++-LICENSE.TXT",
+    "x86_64/wine/libs-c++abi-LICENSE.TXT",
+    "x86_64/wine/libs-unwind-LICENSE.TXT"
+   ],
+   "source": [
+    "wine-6880117619afdf62b4ccc40a8c6268c86613131f.tar.gz"
+   ],
+   "sections": [
+    "LLVM C++ libraries"
+   ]
+  },
+  {
+   "engine": "x86_64",
+   "name": "FFmpeg subset: libavutil, libswresample, libswscale (bundled in Wine)",
+   "version": "8.1.1, configured with GPL, nonfree and version3 parts off",
+   "licence": "LGPL-2.1-or-later",
+   "where": "colorcnv.dll, iyuv_32.dll, msvproc.dll, resampledmo.dll, vidreszr.dll",
+   "texts": [
+    "x86_64/wine/NOTICES.md",
+    "x86_64/wine/COPYING.LIB",
+    "x86_64/wine/libs-ffmpeg-LICENSE.md"
+   ],
+   "source": [
+    "wine-6880117619afdf62b4ccc40a8c6268c86613131f.tar.gz"
+   ],
+   "sections": [
+    "FFmpeg"
+   ]
+  },
+  {
+   "engine": "x86_64",
+   "name": "FluidSynth (bundled in Wine)",
+   "version": "2.4.3",
+   "licence": "LGPL-2.1-or-later",
+   "where": "dmsynth.dll",
+   "texts": [
+    "x86_64/wine/NOTICES.md",
+    "x86_64/wine/COPYING.LIB",
+    "x86_64/wine/libs-fluidsynth-AUTHORS",
+    "x86_64/wine/libs-fluidsynth-COPYING.md"
+   ],
+   "source": [
+    "wine-6880117619afdf62b4ccc40a8c6268c86613131f.tar.gz"
+   ],
+   "sections": [
+    "FluidSynth"
+   ]
+  },
+  {
+   "engine": "x86_64",
+   "name": "mpg123 (bundled in Wine)",
+   "version": "1.33.5",
+   "licence": "LGPL-2.1",
+   "where": "l3codeca.acm, mp3dmod.dll",
+   "texts": [
+    "x86_64/wine/NOTICES.md",
+    "x86_64/wine/COPYING.LIB",
+    "x86_64/wine/libs-mpg123-AUTHORS",
+    "x86_64/wine/libs-mpg123-LICENSE"
+   ],
+   "source": [
+    "wine-6880117619afdf62b4ccc40a8c6268c86613131f.tar.gz"
+   ],
+   "sections": [
+    "Mpg123"
+   ]
+  },
+  {
+   "engine": "x86_64",
+   "name": "vkd3d (bundled in Wine)",
+   "version": "2.1",
+   "licence": "LGPL-2.1-or-later",
+   "where": "wined3d.dll",
+   "texts": [
+    "x86_64/wine/NOTICES.md",
+    "x86_64/wine/COPYING.LIB",
+    "x86_64/wine/libs-vkd3d-AUTHORS",
+    "x86_64/wine/libs-vkd3d-COPYING"
+   ],
+   "source": [
+    "wine-6880117619afdf62b4ccc40a8c6268c86613131f.tar.gz"
+   ],
+   "sections": [
+    "Vkd3d"
+   ]
+  },
+  {
+   "engine": "x86_64",
+   "name": "Capstone (bundled in Wine)",
+   "version": "5.0.3",
+   "licence": "BSD-3-Clause, NCSA for LLVM-derived parts",
+   "where": "winedbg.exe",
+   "texts": [
+    "x86_64/wine/NOTICES.md",
+    "x86_64/wine/libs-capstone-LICENSE.TXT",
+    "x86_64/wine/libs-capstone-LICENSE_LLVM.TXT"
+   ],
+   "source": [
+    "wine-6880117619afdf62b4ccc40a8c6268c86613131f.tar.gz"
+   ],
+   "sections": [
+    "Capstone"
+   ]
+  },
+  {
+   "engine": "x86_64",
+   "name": "FAudio (bundled in Wine)",
+   "version": "26.09",
+   "licence": "Zlib",
+   "where": "xaudio2_*, xactengine*, x3daudio1_*, xapofx1_* DLLs",
+   "texts": [
+    "x86_64/wine/libs-faudio-LICENSE"
+   ],
+   "source": [
+    "wine-6880117619afdf62b4ccc40a8c6268c86613131f.tar.gz"
+   ]
+  },
+  {
+   "engine": "x86_64",
+   "name": "GSM 06.10 (bundled in Wine)",
+   "version": "1.0.19",
+   "licence": "TU Berlin GSM licence (permissive)",
+   "where": "msgsm32.acm",
+   "texts": [
+    "x86_64/wine/libs-gsm-COPYRIGHT"
+   ],
+   "source": [
+    "wine-6880117619afdf62b4ccc40a8c6268c86613131f.tar.gz"
+   ]
+  },
+  {
+   "engine": "x86_64",
+   "name": "MS-ICU icucommon and icui18n (bundled in Wine)",
+   "version": "72.1.0.3",
+   "licence": "Unicode-3.0",
+   "where": "icu.dll",
+   "texts": [
+    "x86_64/wine/NOTICES.md",
+    "x86_64/wine/libs-icucommon-LICENSE",
+    "x86_64/wine/libs-icui18n-LICENSE"
+   ],
+   "source": [
+    "wine-6880117619afdf62b4ccc40a8c6268c86613131f.tar.gz"
+   ],
+   "sections": [
+    "ICU"
+   ]
+  },
+  {
+   "engine": "x86_64",
+   "name": "libjpeg (IJG, bundled in Wine)",
+   "version": "release 10",
+   "licence": "IJG",
+   "where": "windowscodecs.dll",
+   "texts": [
+    "x86_64/wine/NOTICES.md",
+    "x86_64/wine/libs-jpeg-LICENSE"
+   ],
+   "source": [
+    "wine-6880117619afdf62b4ccc40a8c6268c86613131f.tar.gz"
+   ],
+   "credit": "This software is based in part on the work of the Independent JPEG Group.",
+   "sections": [
+    "LibJPEG"
+   ]
+  },
+  {
+   "engine": "x86_64",
+   "name": "jxrlib (bundled in Wine)",
+   "version": "1.1",
+   "licence": "BSD-2-Clause",
+   "where": "wmphoto.dll",
+   "texts": [
+    "x86_64/wine/NOTICES.md",
+    "x86_64/wine/libs-jxr-LICENSE"
+   ],
+   "source": [
+    "wine-6880117619afdf62b4ccc40a8c6268c86613131f.tar.gz"
+   ],
+   "sections": [
+    "JXR"
+   ]
+  },
+  {
+   "engine": "x86_64",
+   "name": "Little CMS (bundled in Wine)",
+   "version": "2.19.1",
+   "licence": "MIT",
+   "where": "mscms.dll",
+   "texts": [
+    "x86_64/wine/NOTICES.md",
+    "x86_64/wine/libs-lcms2-AUTHORS",
+    "x86_64/wine/libs-lcms2-COPYING"
+   ],
+   "source": [
+    "wine-6880117619afdf62b4ccc40a8c6268c86613131f.tar.gz"
+   ],
+   "sections": [
+    "Little CMS"
+   ]
+  },
+  {
+   "engine": "x86_64",
+   "name": "OpenLDAP (bundled in Wine)",
+   "version": "2.5.18",
+   "licence": "OLDAP-2.8",
+   "where": "wldap32.dll",
+   "texts": [
+    "x86_64/wine/NOTICES.md",
+    "x86_64/wine/libs-ldap-COPYRIGHT",
+    "x86_64/wine/libs-ldap-LICENSE"
+   ],
+   "source": [
+    "wine-6880117619afdf62b4ccc40a8c6268c86613131f.tar.gz"
+   ],
+   "sections": [
+    "OpenLDAP"
+   ]
+  },
+  {
+   "engine": "x86_64",
+   "name": "musl maths library (bundled in Wine)",
+   "version": "1.2.3",
+   "licence": "MIT",
+   "where": "msvcrt*, msvcr70-120, crtdll, ucrtbase, ntdll",
+   "texts": [
+    "x86_64/wine/NOTICES.md",
+    "x86_64/wine/libs-musl-COPYRIGHT"
+   ],
+   "source": [
+    "wine-6880117619afdf62b4ccc40a8c6268c86613131f.tar.gz"
+   ],
+   "sections": [
+    "Musl"
+   ]
+  },
+  {
+   "engine": "x86_64",
+   "name": "libpng (Wine's own copy)",
+   "version": "1.6.58",
+   "licence": "libpng-2.0",
+   "where": "user32.dll, windowscodecs.dll",
+   "texts": [
+    "x86_64/wine/NOTICES.md",
+    "x86_64/wine/libs-png-AUTHORS",
+    "x86_64/wine/libs-png-LICENSE"
+   ],
+   "source": [
+    "wine-6880117619afdf62b4ccc40a8c6268c86613131f.tar.gz"
+   ],
+   "sections": [
+    "LibPNG"
+   ]
+  },
+  {
+   "engine": "x86_64",
+   "name": "SQLite (bundled in Wine)",
+   "version": "3.53.2",
+   "licence": "blessing (public domain)",
+   "where": "winsqlite3.dll",
+   "texts": [
+    "x86_64/wine/NOTICES.md"
+   ],
+   "source": [
+    "wine-6880117619afdf62b4ccc40a8c6268c86613131f.tar.gz"
+   ],
+   "sections": [
+    "SQLite3"
+   ]
+  },
+  {
+   "engine": "x86_64",
+   "name": "SymCrypt (bundled in Wine)",
+   "version": "103.11.0",
+   "licence": "MIT",
+   "where": "bcrypt.dll, dssenh.dll, rsaenh.dll, ntdll.dll",
+   "texts": [
+    "x86_64/wine/NOTICES.md",
+    "x86_64/wine/libs-symcrypt-LICENSE.txt"
+   ],
+   "source": [
+    "wine-6880117619afdf62b4ccc40a8c6268c86613131f.tar.gz"
+   ],
+   "sections": [
+    "SymCrypt"
+   ]
+  },
+  {
+   "engine": "x86_64",
+   "name": "LibTIFF (bundled in Wine)",
+   "version": "4.7.1",
+   "licence": "libtiff",
+   "where": "windowscodecs.dll",
+   "texts": [
+    "x86_64/wine/NOTICES.md",
+    "x86_64/wine/libs-tiff-COPYRIGHT"
+   ],
+   "source": [
+    "wine-6880117619afdf62b4ccc40a8c6268c86613131f.tar.gz"
+   ],
+   "sections": [
+    "LibTIFF"
+   ]
+  },
+  {
+   "engine": "x86_64",
+   "name": "libxml2 and libxslt (bundled in Wine)",
+   "version": "libxml2 2.12.10, libxslt 1.1.45",
+   "licence": "MIT",
+   "where": "msxml3.dll",
+   "texts": [
+    "x86_64/wine/NOTICES.md",
+    "x86_64/wine/libs-xml2-AUTHORS",
+    "x86_64/wine/libs-xml2-COPYING",
+    "x86_64/wine/libs-xslt-AUTHORS",
+    "x86_64/wine/libs-xslt-COPYING"
+   ],
+   "source": [
+    "wine-6880117619afdf62b4ccc40a8c6268c86613131f.tar.gz"
+   ],
+   "sections": [
+    "LibXML2",
+    "LibXSLT"
+   ]
+  },
+  {
+   "engine": "x86_64",
+   "name": "zlib (bundled in Wine)",
+   "version": "1.3.2",
+   "licence": "Zlib",
+   "where": "cabinet, dbghelp, ntdll, opcservices, user32, windowscodecs, winhttp, wininet",
+   "texts": [
+    "x86_64/wine/NOTICES.md",
+    "x86_64/wine/libs-zlib-LICENSE"
+   ],
+   "source": [
+    "wine-6880117619afdf62b4ccc40a8c6268c86613131f.tar.gz"
+   ],
+   "sections": [
+    "ZLib"
+   ]
+  },
+  {
+   "engine": "x86_64",
+   "name": "GnuTLS (built from source)",
+   "version": "3.8.13 with upstream commit 29c2027c (a clang build fix)",
+   "licence": "LGPL-2.1-or-later; its own copies of libunistring and gnulib code LGPL-3.0-or-later (chosen) OR GPL-2.0-or-later; inih BSD-3-Clause; crau MIT OR Unlicense; x86 assembly by Andy Polyakov under the CRYPTOGAMS licence",
+   "where": "lib/ext/libgnutls.30.dylib",
+   "texts": [
+    "x86_64/gnutls/COPYING.LESSERv2",
+    "x86_64/gnutls/COPYING.LESSERv3-from-nettle-4.0",
+    "x86_64/gnutls/COPYING",
+    "x86_64/gnutls/README.md",
+    "x86_64/gnutls/AUTHORS",
+    "x86_64/gnutls/lib-inih-LICENSE.txt",
+    "x86_64/gnutls/lib-crau-LICENSE",
+    "x86_64/gnutls/lib-crau-UNLICENSE",
+    "x86_64/gnutls/lib-accelerated-x86-license.txt"
+   ],
+   "source": [
+    "gnutls-3.8.13.tar.xz",
+    "gnutls-3.8.13-29c2027c.diff",
+    "adp-engine-x86_64-11.18-1-build.tar.xz"
+   ],
+   "note": "Cross-compiled for x86_64 from the upstream tarball by build-deps.sh (configure options in the engine's licenses/SOURCES.md), install names rewritten to @loader_path, local symbols stripped, signed. --with-included-unistring; without p11-kit, IDN, NLS, a trust-store or priority file, zlib/brotli/zstd, TPM, tools and DANE."
+  },
+  {
+   "engine": "x86_64",
+   "name": "Nettle and Hogweed (built from source)",
+   "version": "4.0",
+   "licence": "LGPL-3.0-or-later (chosen) OR GPL-2.0-or-later",
+   "where": "lib/ext/libnettle.9.dylib, lib/ext/libhogweed.7.dylib",
+   "texts": [
+    "x86_64/nettle/COPYING.LESSERv3",
+    "x86_64/nettle/COPYINGv3",
+    "x86_64/nettle/COPYINGv2"
+   ],
+   "source": [
+    "nettle-4.0.tar.gz",
+    "adp-engine-x86_64-11.18-1-build.tar.xz"
+   ],
+   "note": "Cross-compiled for x86_64 from the upstream tarball by build-deps.sh (configure options in the engine's licenses/SOURCES.md), install names rewritten to @loader_path, local symbols stripped, signed."
+  },
+  {
+   "engine": "x86_64",
+   "name": "GMP (built from source)",
+   "version": "6.3.0",
+   "licence": "LGPL-3.0-or-later (chosen) OR GPL-2.0-or-later",
+   "where": "lib/ext/libgmp.10.dylib",
+   "texts": [
+    "x86_64/gmp/COPYING.LESSERv3",
+    "x86_64/gmp/COPYINGv3",
+    "x86_64/gmp/COPYINGv2"
+   ],
+   "source": [
+    "gmp-6.3.0.tar.xz",
+    "adp-engine-x86_64-11.18-1-build.tar.xz"
+   ],
+   "note": "Cross-compiled for x86_64 from the upstream tarball by build-deps.sh (configure options in the engine's licenses/SOURCES.md), install names rewritten to @loader_path, local symbols stripped, signed."
+  },
+  {
+   "engine": "x86_64",
+   "name": "libtasn1 (built from source)",
+   "version": "4.21.0",
+   "licence": "LGPL-2.1-or-later (library)",
+   "where": "lib/ext/libtasn1.6.dylib",
+   "texts": [
+    "x86_64/libtasn1/COPYING.LESSERv2"
+   ],
+   "source": [
+    "libtasn1-4.21.0.tar.gz",
+    "adp-engine-x86_64-11.18-1-build.tar.xz"
+   ],
+   "note": "Cross-compiled for x86_64 from the upstream tarball by build-deps.sh (configure options in the engine's licenses/SOURCES.md), install names rewritten to @loader_path, local symbols stripped, signed."
+  },
+  {
+   "engine": "x86_64",
+   "name": "FreeType (built from source)",
+   "version": "2.15.0",
+   "licence": "FTL (chosen; FreeType is also offered under GPL-2.0-or-later)",
+   "where": "lib/ext/libfreetype.6.dylib",
+   "texts": [
+    "x86_64/freetype/LICENSE.TXT",
+    "x86_64/freetype/docs-FTL.TXT",
+    "x86_64/freetype/docs-GPLv2.TXT",
+    "x86_64/freetype/src-bdf-README",
+    "x86_64/freetype/src-pcf-README",
+    "x86_64/freetype/src-gzip-zlib.h-NOTICE",
+    "x86_64/freetype/src-autofit-ft-hb-ft.c-NOTICE"
+   ],
+   "source": [
+    "freetype-2.15.0.tar.xz",
+    "adp-engine-x86_64-11.18-1-build.tar.xz"
+   ],
+   "credit": "Portions of this software are copyright © 2026 The FreeType Project (https://freetype.org). All rights reserved.",
+   "note": "Cross-compiled for x86_64 from the upstream tarball by build-deps.sh (configure options in the engine's licenses/SOURCES.md), install names rewritten to @loader_path, local symbols stripped, signed. With macOS's own zlib; no libpng, bzip2, HarfBuzz, Brotli or the experimental HVF driver."
+  },
+  {
+   "engine": "x86_64",
+   "name": "Engine packaging, ENGINE-NAME and licences folder (ADP Monitor)",
+   "version": "engine-x86_64-11.18-1",
+   "licence": "MIT (this repository's LICENSE)",
+   "where": "bin/wine (link), ENGINE-NAME, licenses/",
+   "texts": [],
+   "source": [
+    "adp-engine-x86_64-11.18-1-build.tar.xz"
+   ]
+  }
+ ]
+}

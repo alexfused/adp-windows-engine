@@ -1,0 +1,23 @@
+# SPDX-License-Identifier: MIT
+# Third-party code inside FEX's source tree that the engine's FEX builds compile, and the licenses/ file that
+# carries its notice. tools/fex-notices.py (package.sh runs it) lists every file the FEX builds read
+# (`ninja -t deps` of work/build/fex-*) below FEX's tree and stops the packaging if one has a copyright line,
+# a public-domain statement or an SPDX licence other than FEX's own MIT and no line here covers it, or if a
+# licenses/ file named here is missing. "-" means no notice is needed; the last column says why.
+# Format (tab separated): path pattern (fnmatch, relative to FEX's tree)  licenses/ files (comma separated) or -  what it is
+External/SoftFloat-3e/*	fex/SoftFloat-3e-NOTICE	Berkeley SoftFloat 3e, BSD-3-Clause (the notice is the leading comment of its source files)
+External/cephes/*	fex/cephes-LICENSE	cephes 128-bit maths, BSD-style
+External/fmt/*	fex/fmt-LICENSE	{fmt}, MIT
+External/xxhash/*	fex/xxhash-LICENSE	xxHash, BSD-2-Clause
+External/tiny-json/*	fex/tiny-json-LICENSE	tiny-json, MIT
+External/unordered_dense/*	fex/unordered_dense-LICENSE	unordered_dense, MIT
+External/rpmalloc/*	fex/rpmalloc-LICENSE	rpmalloc, Unlicense OR MIT
+External/range-v3/*	fex/range-v3-LICENSE.txt	range-v3, BSL-1.0 (header-only)
+Source/Common/cpp-optparse/*	fex/cpp-optparse-LICENSE	cpp-optparse, MIT
+CodeEmitter/CodeEmitter/VixlUtils.inl	fex/VIXL-NOTICE	functions taken from VIXL (Copyright 2015, VIXL authors), BSD-3-Clause; the notice is the file's own leading comment. The VIXL library itself (External/vixl) is not compiled
+Source/Windows/Common/CRT/Musl/*	fex/Musl-COPYRIGHT	musl libc routines in FEX's Windows runtime (Rich Felker et al.; exp2 and log2 by Arm Limited), MIT; the files carry only SPDX lines, so the text is musl's own COPYRIGHT file, from Wine's copy of musl
+Source/Windows/include/wine/*	wine/COPYING.LIB	Wine headers, LGPL-2.1-or-later
+Source/Windows/include/winnt.h	wine/COPYING.LIB	Wine header, LGPL-2.1-or-later
+Source/Windows/include/winternl.h	wine/COPYING.LIB	Wine header, LGPL-2.1-or-later
+Source/Windows/Common/LoadConfig.S	-	mingw-w64's load-config stub, which says it is placed in the public domain
+FEXCore/Source/Interface/Core/JIT/JIT.cpp	-	FEX's own file (MIT); its SplitMix64 fallback is Sebastiano Vigna's public-domain (CC0) reference code

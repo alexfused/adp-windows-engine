@@ -1,0 +1,31 @@
+#!/bin/bash
+# SPDX-License-Identifier: MIT
+# The C compiler of every x86_64 build (env.sh sets CC to this): Xcode's clang for x86_64 macOS
+# $ADP_MACOS_MIN. Every x86_64 *executable* it links loses its execute bit, so the kernel refuses
+# to start it (EACCES) and Rosetta never gets the chance: configure probes that run ./conftest or
+# ./a.out without checking for a cross build fail instead of running x86_64 code. Objects and
+# libraries are untouched; `make install` sets the mode of the engine's own programs (under
+# DESTDIR, where env.sh's exec barrier refuses to start anything).
+: "${ADP_CLANG:?}" "${ADP_MACOS_MIN:?}"
+"$ADP_CLANG" -arch x86_64 -mmacosx-version-min="$ADP_MACOS_MIN" "$@"
+rc=$?
+[[ $rc == 0 ]] || exit $rc
+
+out=; link=1; prev=
+for a in "$@"; do
+    case "$prev" in -o) out="$a" ;; esac
+    case "$a" in
+        -c|-S|-E|-M|-MM) link= ;;
+        -o?*) out="${a#-o}" ;;
+    esac
+    prev="$a"
+done
+[[ -n $link ]] || exit 0
+[[ -n "$out" ]] || out=a.out
+[[ -f "$out" ]] || exit 0
+# 64-bit Mach-O (cffaedfe), CPU x86_64 (07000001), file type MH_EXECUTE (02000000).
+hdr=$(/usr/bin/xxd -p -l 16 "$out" 2>/dev/null)
+if [[ "$hdr" == cffaedfe07000001????????02000000 ]]; then
+    /bin/chmod a-x "$out"
+fi
+exit 0
