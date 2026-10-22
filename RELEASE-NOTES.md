@@ -9,7 +9,7 @@ Both are Wine 11.18 (a development snapshot, upstream commit 6880117619af) with 
 
 **`engine-arm64-11.18-2`** adds FEX 0df84d3844bc with Hadron's 5 FEX patches, so x86 and x86-64 Windows programs run on Apple silicon without Rosetta. Signed with Alex Parkin's Developer ID under the engine's own identifier `com.alexparkin.adpmonitor.winehost` and notarised by Apple.
 
-**`engine-x86_64-11.18-1`** runs x86 and x86-64 Windows programs natively on Intel Macs (macOS 12.3 or later). It was cross-compiled on Apple silicon. Its first test run on an Intel Mac passed 9 of 10 required checks; the tenth failed because of a bug in the test script, since fixed, and a full rerun is still to come. It is signed under the same identifier and not yet notarised.
+**`engine-x86_64-11.18-1`** runs x86 and x86-64 Windows programs natively on Intel Macs (macOS 12.3 or later). It was cross-compiled on Apple silicon. Its first test run, on an Intel iMac with macOS 26.7.1, passed 9 of the 10 required checks. The tenth failed because of a timing bug in the test script, since fixed. A full rerun is still to come. It is signed under the same identifier. Apple notarised it on 22 October 2026, after this release was published (submission 9d595ff6-8168-4498-a284-1663f99781f8). The archive did not change. It has no app to staple the ticket to, so Gatekeeper fetches the ticket from Apple. The engine's manifest was written before notarisation and still says `"notarized": false`.
 
 Check a download: `shasum -a 256 -c SHA256SUMS --ignore-missing`.
 

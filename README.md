@@ -12,7 +12,7 @@ Both engines are built from source by the scripts in this repository, from the s
 | Engine | For | What it is | Archive |
 |---|---|---|---|
 | `engine-arm64-11.18-2` | Apple silicon Macs, macOS 27 or later | Wine 11.18 development snapshot with 30 of Hadron's patches, and FEX inside Wine to run x86 and x86-64 Windows code. It does not use Rosetta. Notarised by Apple. | `engine-arm64-11.18-2.tar.xz`, 85,920,516 bytes; 1,822 files (1,010,637,269 bytes) unpacked |
-| `engine-x86_64-11.18-1` | Intel Macs, macOS 12.3 or later | The same Wine tree with 16 of Hadron's patches and 3 of ours, running x86 and x86-64 Windows code natively. Cross-compiled on Apple silicon. Not yet notarised. | `engine-x86_64-11.18-1.tar.xz`, 59,976,376 bytes; 1,843 files (438,046,967 bytes) unpacked |
+| `engine-x86_64-11.18-1` | Intel Macs, macOS 12.3 or later | The same Wine tree with 16 of Hadron's patches and 3 of ours, running x86 and x86-64 Windows code natively. Cross-compiled on Apple silicon. Notarised by Apple on 22 October 2026, after the release. | `engine-x86_64-11.18-1.tar.xz`, 59,976,376 bytes; 1,843 files (438,046,967 bytes) unpacked |
 
 SHA-256 of the archives:
 
@@ -42,6 +42,16 @@ an engine gets none of ADP Monitor's privacy permissions and ADP Monitor's root 
 
 The Apple silicon loader, `WineHost.app`, carries a provisioning profile for that App ID with Apple's
 cross-architecture entitlement; the Intel loader needs no profile.
+
+Apple notarised both engines. The Apple silicon engine's ticket is stapled to `WineHost.app`. Apple notarised the
+Intel engine on 22 October 2026, after this release was published (submission
+`9d595ff6-8168-4498-a284-1663f99781f8`, 0 issues). The notary service checked a zip of the files in the published
+archive, and its ticket lists the code directory hash of all 36 Mach-O files. The archive and its SHA-256 did not
+change. The Intel engine has no app to staple a ticket to, so Gatekeeper fetches the ticket from Apple when it checks a
+file. On a copy unpacked from the release and quarantined as a browser download is,
+`spctl --assess --type open --context context:primary-signature` accepts each of the 36 files as
+`Notarized Developer ID`. The release's `engine-x86_64-11.18-1.manifest.json` was written before notarisation and still
+says `"notarized": false`. It stays as published, so every release file still matches `SHA256SUMS`.
 
 ## Which version of ADP Monitor uses them
 

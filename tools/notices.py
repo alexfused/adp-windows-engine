@@ -23,7 +23,8 @@ SRCDIR = os.path.join(ROOT, "downloads", "release-sources")
 
 def conf():
     keys = ["REPO", "TAG", "BASE_URL", "RELEASE_TITLE", "ARM64_ENGINE", "ARM64_ARCHIVE", "ARM64_MANIFEST_IN",
-            "X86_64_ENGINE", "X86_64_ARCHIVE", "X86_64_MANIFEST_IN", "WINE_COMMIT", "FEX_COMMIT", "HADRON_COMMIT"]
+            "X86_64_ENGINE", "X86_64_ARCHIVE", "X86_64_MANIFEST_IN", "WINE_COMMIT", "FEX_COMMIT", "HADRON_COMMIT",
+            "X86_64_NOTARY_SUBMISSION", "X86_64_NOTARISED_ON"]
     script = f'source "{ROOT}/release.conf"; ' + "; ".join(f'printf "%s\\0" "${k}"' for k in keys)
     vals = subprocess.run(["bash", "-c", script], capture_output=True, check=True).stdout.decode().split("\0")
     return dict(zip(keys, vals))
@@ -275,6 +276,22 @@ def cmd_notes():
     for eng, e in DATA["engines"].items():
         tar = os.path.basename(ARCHIVES[eng][0])
         rows.append(f"| `{e['name']}` | {e['for']} | `{tar}` | `{sums.get(tar, '?')}` |")
+    x86 = DATA["engines"]["x86_64"]["name"]
+    if C["X86_64_NOTARY_SUBMISSION"]:
+        # Notarised after the release went out: the archive and its manifest stay as published.
+        y, mo, d = (int(p) for p in C["X86_64_NOTARISED_ON"].split("-"))
+        month = ["January", "February", "March", "April", "May", "June", "July", "August", "September",
+                 "October", "November", "December"][mo - 1]
+        with open(os.path.join(ROOT, "manifests", f"{x86}.manifest.json")) as f:
+            stale = not json.load(f)["signing"]["notarized"]
+        x86_signing = (
+            f"It is signed under the same identifier. Apple notarised it on {d} {month} {y}, after this release was "
+            f"published (submission {C['X86_64_NOTARY_SUBMISSION']}). The archive did not change. It has no app to "
+            "staple the ticket to, so Gatekeeper fetches the ticket from Apple."
+            + (" The engine's manifest was written before notarisation and still says `\"notarized\": false`."
+               if stale else ""))
+    else:
+        x86_signing = "It is signed under the same identifier and not yet notarised."
     lines = [
         "Two Windows engines for ADP Monitor, both built from source by ADP Monitor's scripts. Each engine has a "
         "manifest (`*.manifest.json`: download URL, SHA-256, size, layout, health check, signing, and every source "
@@ -292,10 +309,10 @@ def cmd_notes():
         "so x86 and x86-64 Windows programs run on Apple silicon without Rosetta. Signed with Alex Parkin's "
         "Developer ID under the engine's own identifier `com.alexparkin.adpmonitor.winehost` and notarised by Apple.",
         "",
-        f"**`{DATA['engines']['x86_64']['name']}`** runs x86 and x86-64 Windows programs natively on Intel Macs "
-        "(macOS 12.3 or later). It was cross-compiled on Apple silicon. Its first test run on an Intel Mac passed 9 of "
-        "10 required checks; the tenth failed because of a bug in the test script, since fixed, and a full rerun is "
-        "still to come. It is signed under the same identifier and not yet notarised.",
+        f"**`{x86}`** runs x86 and x86-64 Windows programs natively on Intel Macs "
+        "(macOS 12.3 or later). It was cross-compiled on Apple silicon. Its first test run, on an Intel iMac with "
+        "macOS 26.7.1, passed 9 of the 10 required checks. The tenth failed because of a timing bug in the test "
+        "script, since fixed. A full rerun is still to come. " + x86_signing,
         "",
         "Check a download: `shasum -a 256 -c SHA256SUMS --ignore-missing`.",
         "",
